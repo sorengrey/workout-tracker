@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const Workout = require("../models/workout.js");
 
-// this is supposed to get the /workout page
-router.get("/api/transaction", (req, res) => {
-    Transaction.find({})
+// this is supposed to get the /workout page - not working yet
+router.get("/api/workout", (req, res) => {
+    Workout.find({})
       .sort({ date: -1 })
       .then(dbWorkout => {
         res.json(dbWorkout);
