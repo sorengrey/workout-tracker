@@ -1,3 +1,4 @@
+// const Workout = require("./models/workout.js")
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");

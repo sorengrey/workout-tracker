@@ -37,6 +37,18 @@ router.get("/api/stats", (req, res) => {
     });
 });
 
+//gets the range section of the /stats page
+router.get("/api/stats/range", (req, res) => {
+  Workout.find({})
+    .sort({ date: -1 })
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
 // supposed to post a workout to api/stats - does not work yet 
 router.post("/api/stats", ({ body }, res) => {
   Workout.insertMany(body)
