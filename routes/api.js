@@ -37,7 +37,18 @@ router.get("/api/stats", (req, res) => {
     });
 });
 
-// supposed to post the workouts in bulk to api/stats
+// supposed to post a workout to api/stats - does not work yet 
+router.post("/api/stats", ({ body }, res) => {
+  Workout.insertMany(body)
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
+// supposed to post the workouts in bulk to api/stats - does not work yet 
 router.post("/api/stats/bulk", ({ body }, res) => {
   Workout.insertMany(body)
     .then(dbTransaction => {
