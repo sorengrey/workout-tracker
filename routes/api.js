@@ -41,17 +41,6 @@ router.get("/api/workouts", (req, res) => {
       });
 });
 
-// // gets the api/stats page
-// router.get("/api/stats", (req, res) => {
-//   Workout.find({})
-//     .sort({ date: -1 })
-//     .then(workoutDB => {
-//       res.json(workoutDB);
-//     })
-//     .catch(err => {
-//       res.status(400).json(err);
-//     });
-// });
 
 //gets the range section of the /workouts page
 router.get("/api/workouts/range", (req, res) => {
@@ -65,20 +54,9 @@ router.get("/api/workouts/range", (req, res) => {
     });
 });
 
-// supposed to post a workout to api/workouts
+// posts the workouts
 router.post("/api/workouts", ({ body }, res) => {
   Workout.create(body)
-    .then(workoutDB => {
-      res.json(workoutDB);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
-
-// supposed to post the workouts in bulk to api/stats - does not work yet 
-router.post("/api/workouts/bulk", ({ body }, res) => {
-  Workout.insertMany(body)
     .then(workoutDB => {
       res.json(workoutDB);
     })
