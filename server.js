@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // this url string might be wrong
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutDB", {
   useNewUrlParser: true,
   // useFindAndModify: false
 });

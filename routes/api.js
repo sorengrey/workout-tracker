@@ -12,13 +12,14 @@ router.get("/exercise", (req, res) => {
 router.get("/api/exercise", (req, res) => {
   Workout.find({})
     .sort({ date: -1 })
-    .then(dbTransaction => {
-      res.json(dbTransaction);
+    .then(workoutDB => {
+      res.json(workoutDB);
     })
     .catch(err => {
       res.status(400).json(err);
     });
 });
+
 
 // gets the /stats page
 router.get("/stats", (req, res) => {
@@ -29,8 +30,8 @@ router.get("/stats", (req, res) => {
 router.get("/api/stats", (req, res) => {
   Workout.find({})
     .sort({ date: -1 })
-    .then(dbTransaction => {
-      res.json(dbTransaction);
+    .then(workoutDB => {
+      res.json(workoutDB);
     })
     .catch(err => {
       res.status(400).json(err);
@@ -41,19 +42,19 @@ router.get("/api/stats", (req, res) => {
 router.get("/api/stats/range", (req, res) => {
   Workout.find({})
     .sort({ date: -1 })
-    .then(dbTransaction => {
-      res.json(dbTransaction);
+    .then(workoutDB => {
+      res.json(workoutDB);
     })
     .catch(err => {
       res.status(400).json(err);
     });
 });
 
-// supposed to post a workout to api/stats - does not work yet 
-router.post("/api/stats", ({ body }, res) => {
-  Workout.insertMany(body)
-    .then(dbTransaction => {
-      res.json(dbTransaction);
+// supposed to post a workout to api/workouts
+router.post("/api/workouts", ({ body }, res) => {
+  Workout.create(body)
+    .then(workoutDB => {
+      res.json(workoutDB);
     })
     .catch(err => {
       res.status(400).json(err);
@@ -63,12 +64,26 @@ router.post("/api/stats", ({ body }, res) => {
 // supposed to post the workouts in bulk to api/stats - does not work yet 
 router.post("/api/stats/bulk", ({ body }, res) => {
   Workout.insertMany(body)
-    .then(dbTransaction => {
-      res.json(dbTransaction);
+    .then(workoutDB => {
+      res.json(workoutDB);
     })
     .catch(err => {
       res.status(400).json(err);
     });
 });
+
+// finds workouts by their id and updates them
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+  console.log(body)
+  Workout.findByIdAndUpdate(params.id,
+      { $push: { exercises: body } }, { new: true })
+      .then(workoutDB => {
+          res.json(workoutDB);
+      })
+      .catch(err => {
+          res.status(400).json(err);
+      });
+});
+
 
 module.exports = router;
