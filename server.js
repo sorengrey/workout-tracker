@@ -11,7 +11,6 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-// this url string might be wrong
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
