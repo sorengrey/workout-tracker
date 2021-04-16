@@ -41,29 +41,29 @@ router.get("/api/workouts", (req, res) => {
       });
 });
 
-// gets the api/stats page
-router.get("/api/stats", (req, res) => {
-  Workout.find({})
-    .sort({ date: -1 })
-    .then(workoutDB => {
-      res.json(workoutDB);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
+// // gets the api/stats page
+// router.get("/api/stats", (req, res) => {
+//   Workout.find({})
+//     .sort({ date: -1 })
+//     .then(workoutDB => {
+//       res.json(workoutDB);
+//     })
+//     .catch(err => {
+//       res.status(400).json(err);
+//     });
+// });
 
-//gets the range section of the /stats page
-router.get("/api/stats/range", (req, res) => {
-  Workout.find({})
-    .limit(10)
-    .then(workoutDB => {
-      res.json(workoutDB);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
+// //gets the range section of the /stats page
+// router.get("/api/stats/range", (req, res) => {
+//   Workout.find({})
+//     .limit(10)
+//     .then(workoutDB => {
+//       res.json(workoutDB);
+//     })
+//     .catch(err => {
+//       res.status(400).json(err);
+//     });
+// });
 
 // supposed to post a workout to api/workouts
 router.post("/api/workouts", ({ body }, res) => {
@@ -94,6 +94,17 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
       { $push: { exercises: body } }, { new: true })
       .then(workoutDB => {
           res.json(workoutDB);
+      })
+      .catch(err => {
+          res.status(400).json(err);
+      });
+});
+
+// deletes workouts by id
+router.delete("/api/workouts", ({ body }, res) => {
+  Workout.findByIdAndRemove(body.id)
+      .then(() => {
+          res.json(true);
       })
       .catch(err => {
           res.status(400).json(err);
